@@ -1,5 +1,4 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 
 class Repository {
   final String name;
@@ -27,17 +26,5 @@ class Repository {
     };
   }
 
-  Future<Repository> getData(List list) async {
-    final response = await http.get('https://api.github.com/repositories');
 
-    if(response.statusCode == 200) {
-      var decoded = jsonDecode(response.body);
-      list = decoded.map<Repository>((e) {
-        return Repository.fromJson(e);
-      }).toList();
-      print(list);
-    } else {
-      throw Exception('Erro ao carregar');
-    }
-  }
 }

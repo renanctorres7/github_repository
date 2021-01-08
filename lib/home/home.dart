@@ -13,6 +13,7 @@ class _HomeState extends State<Home> {
   Future<Repository> repository;
   var list = List<Repository>();
 
+
   Future<Repository> getData() async {
     final response = await http.get('https://api.github.com/repositories');
 
@@ -48,6 +49,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
 
           body: NestedScrollView(
+
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
               return <Widget> [
                 SliverAppBar(
@@ -92,7 +94,13 @@ class _HomeState extends State<Home> {
                         child: const Text('Erro'),
                       );
                     default:
-                      return ListView.builder(
+                      final innerScrollController = PrimaryScrollController.of(context);
+
+                      return ListView(
+                        controller: innerScrollController,
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             String avatar = list[index].avatar;
@@ -115,6 +123,8 @@ class _HomeState extends State<Home> {
                               ),
                             );
                           }
+                      ),
+                        ],
                       );
                   }
 
