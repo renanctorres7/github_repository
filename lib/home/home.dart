@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:github_repository/data/repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 
 class Home extends StatefulWidget {
@@ -27,6 +28,15 @@ class _HomeState extends State<Home> {
       throw Exception('Erro ao carregar');
     }
   }
+
+   launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Could not launch url";
+    }
+    }
+
 
   @override
   void initState() {
@@ -146,18 +156,23 @@ class _HomeState extends State<Home> {
                                     itemBuilder: (context, index) {
                                       String avatar = list[index].avatar;
                                       String name = list[index].name;
-                                      // String url = snapshot.data.url;
+                                      String url = list[index].url;
                                       String repo = list[index].repo;
 
 
-                                      return ListTile(
-                                        contentPadding: const EdgeInsets.all(10),
-                                        leading: CircleAvatar(
-                                          radius: 40,
-                                          backgroundImage: NetworkImage(avatar),
+                                      return InkWell(
+                                        onTap: (){
+                                          launchUrl(url);
+                                        },
+                                        child: ListTile(
+                                          contentPadding: const EdgeInsets.all(10),
+                                          leading: CircleAvatar(
+                                            radius: 40,
+                                            backgroundImage: NetworkImage(avatar),
+                                          ),
+                                          title: Text(repo.toUpperCase()),
+                                          subtitle: Text("Autor: $name"),
                                         ),
-                                        title: Text(repo.toUpperCase()),
-                                        subtitle: Text("Autor: $name"),
                                       );
                                     }
                                 ),
