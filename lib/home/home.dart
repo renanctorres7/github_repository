@@ -58,11 +58,12 @@ class _HomeState extends State<Home> {
                     title: ListTile(
                       title: const Text("GitHub", style: TextStyle(
                         fontSize: 36,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white
                       ),
                       ),
                       subtitle: const Text("Repositórios", style: TextStyle(
-                        color: Colors.black38,
+                        color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                       ),
@@ -99,31 +100,72 @@ class _HomeState extends State<Home> {
                       return ListView(
                         controller: innerScrollController,
                         children: [
-                          ListView.builder(
-                            shrinkWrap: true,
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            String avatar = list[index].avatar;
-                            String name = list[index].name;
-                            // String url = snapshot.data.url;
-                            String repo = list[index].repo;
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
 
-
-                            return InkWell(
-                              onTap: () {},
-                              child: Card(
-                                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                child: ListTile(
-                                  leading: Container(
-                                    child: Image.network(avatar),
-                                  ),
-                                  title: Text(repo.toUpperCase()),
-                                  subtitle: Text("Autor: $name"),
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: RaisedButton(
+                                  color: Colors.white54,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                    onPressed: (){},
+                                  child: Text("10"),
                                 ),
                               ),
-                            );
-                          }
-                      ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: RaisedButton(
+                                  color: Colors.white54,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                  onPressed: (){},
+                                  child: Text("50"),
+                                ),
+                              ),
+                              RaisedButton(
+
+                                color: Colors.white54,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                onPressed: (){},
+                                child: Text("100"),
+                              )
+                            ],
+                          ),
+
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(130)),
+                            child: Container(
+
+                              color: Colors.white,
+                              child: Container(
+                                padding: const EdgeInsets.only(top: 40),
+                                margin: const EdgeInsets.only(left: 40),
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: 100,
+                                    itemBuilder: (context, index) {
+                                      String avatar = list[index].avatar;
+                                      String name = list[index].name;
+                                      // String url = snapshot.data.url;
+                                      String repo = list[index].repo;
+
+
+                                      return ListTile(
+                                        contentPadding: const EdgeInsets.all(10),
+                                        leading: CircleAvatar(
+                                          radius: 40,
+                                          backgroundImage: NetworkImage(avatar),
+                                        ),
+                                        title: Text(repo.toUpperCase()),
+                                        subtitle: Text("Autor: $name"),
+                                      );
+                                    }
+                                ),
+                              ),
+
+                            ),
+                          ),
+
                         ],
                       );
                   }
