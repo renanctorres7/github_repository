@@ -19,6 +19,7 @@ class _HomeState extends State<Home> {
   bool floatVisible = true;
 
 
+  // ignore: missing_return
   Future<Repository> getData() async {
     final response = await http.get('https://api.github.com/repositories');
 
